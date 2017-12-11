@@ -48,7 +48,7 @@ export default {
         return this.$store.state.easymode
      },
      qindex(){
-        return this.$store.state.questionIndex
+        return this.$store.state.questionIndex+1
 
      }
  },
@@ -62,6 +62,7 @@ export default {
       if(this.$store.state.currentQuestion.correct||this.$store.state.easymode){
           this.$store.dispatch( 'nextquestion')
       }else{
+        this.$store.dispatch( 'finish')
               this.$router.push('/finish')
       }
      }
@@ -71,6 +72,6 @@ export default {
 <style scoped>
 h4{
   display:inline-block;
-  width:100%;
+  width:100%; 
 }
 </style>

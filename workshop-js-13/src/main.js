@@ -7,6 +7,8 @@ import router from './router'
 
 Vue.config.productionTip = false
 Vue.use(Vuex)
+var VueResource = require('vue-resource');
+Vue.use(VueResource);
 
 const store = new Vuex.Store({
   state: {
@@ -15,7 +17,8 @@ const store = new Vuex.Store({
     questionIndex: 0,
     questionPhase: 0, // 0 - waiting, 1 - highlited, 2 - answerd 
     currentQuestion: {},
-    answersHistory: []
+    answersHistory: [],
+    easymode: false,
   },
   mutations: {
     setName (state, payload) {
@@ -43,6 +46,10 @@ const store = new Vuex.Store({
           main.$router.push('/finish')
       }
       
+    },
+    setDifficultyEasy(state){
+      state.easymode=true;
+      console.log("easy mode on")
     }
   },
   actions:{
@@ -57,8 +64,10 @@ const store = new Vuex.Store({
     },
     nextquestion({ commit } ){
       commit('nextQuestion')
+    },
+    easymode({ commit } ){
+      commit('setDifficultyEasy')
     }
-
   }
 })
 

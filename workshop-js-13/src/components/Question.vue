@@ -1,5 +1,5 @@
 <template>
-    <div class="col-sm-10">
+    <div class="col-sm-9">
         <h1>{{ question.title }}</h1>
         <div class="row">
         <answer v-for="(answer, index) in question.answers" v-bind:answer="answer" :key="index" @handleAnswer="selectAnswer" >

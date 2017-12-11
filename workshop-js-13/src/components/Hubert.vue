@@ -1,8 +1,12 @@
 <template>
-   <div class="col-md-2">
-       <h1>Hey, jestem Hubert</h1>
-       Status: {{state}}
-       <p>Pytanie {{question}}</p>
+   <div class="col-md-3">
+       <h3>Hey {{name}}, jestem Hubert</h3>
+       <!-- Status: {{state}}
+       <p>Pytanie {{question}}</p> -->
+        <div v-if="easy">Grasz w trybie bezpiecznym</div>
+       <div v-if="state === 0">
+        Czekam na Twoją odpowiedź
+       </div>
        <div v-if="state === 1">
            Czy jesteś pewien ?
            <button @click="accept">Tak</button>
@@ -10,6 +14,13 @@
        <div v-if="state === 2">
            Idziemy dalej?
            <button @click="movenext">Tak</button>
+       </div>
+
+       <div class="row">
+        <h4>Jesteś na pytaniu {{qindex}}</h4><br/>
+        <ul>
+          <li></li>
+        </ul>
        </div>
    </div>
 </template>
@@ -29,6 +40,16 @@ export default {
      },
      state(){
          return this.$store.state.questionPhase
+     },
+     name(){
+          return this.$store.state.userName
+     },
+     easy(){
+        return this.$store.state.easymode
+     },
+     qindex(){
+        return this.$store.state.questionIndex
+
      }
  },
  methods: {
@@ -38,8 +59,7 @@ export default {
      },
      movenext(){
 
-      if(this.$store.state.currentQuestion.correct){
-         console.log(this.$store.state.currentQuestion.correct)
+      if(this.$store.state.currentQuestion.correct||this.$store.state.easymode){
           this.$store.dispatch( 'nextquestion')
       }else{
               this.$router.push('/finish')
@@ -48,3 +68,9 @@ export default {
  }
 }
 </script>
+<style scoped>
+h4{
+  display:inline-block;
+  width:100%;
+}
+</style>

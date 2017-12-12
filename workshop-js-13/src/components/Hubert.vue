@@ -17,9 +17,9 @@
        </div>
 
        <div class="row">
-        <h4>Jesteś na pytaniu {{qindex}}</h4><br/>
+        <h4>Jesteś na pytaniu {{qindex}} z {{Object.keys(levels).length}}</h4><br/>
         <ul>
-          <li></li>
+          <li v-for="(level, index) in levels" v-bind:class="[(index+1) < qindex ? 'green': '', (index+1) ==qindex ? 'actual': '']">{{level.value}}</li>
         </ul>
        </div>
    </div>
@@ -49,8 +49,11 @@ export default {
      },
      qindex(){
         return this.$store.state.questionIndex+1
-
-     }
+     },
+     levels(){
+      return this.$store.state.levels
+    },
+    
  },
  methods: {
      accept(){
@@ -73,5 +76,28 @@ export default {
 h4{
   display:inline-block;
   width:100%; 
+}
+ul li{
+  list-style:none;
+  -webkit-transition: all 500ms;
+    -moz-transition: all 500ms;
+    -o-transition: all 500ms;
+    transition: all 500ms;
+
+}
+.green{
+color: green;
+ -webkit-transition: all 500ms;
+    -moz-transition: all 500ms;
+    -o-transition: all 500ms;
+    transition: all 500ms;
+}
+.actual{
+  -webkit-transition: all 500ms;
+    -moz-transition: all 500ms;
+    -o-transition: all 500ms;
+    transition: all 500ms;
+  font-size:150%;
+  color:blue;
 }
 </style>
